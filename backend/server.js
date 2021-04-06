@@ -1,7 +1,11 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import colors from 'colors';
-import morgan from 'morgan';
+const express = require('express');
+const dotenv = require('dotenv');
+const colors = require('colors');
+const passport = require('passport');
+const session = require('express-session');
+const morgan = require('morgan');
+
+require('./config/passport')(passport);
 
 // IMPORT ROUTES
 
@@ -11,7 +15,21 @@ const app = express();
 
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
+// Express Session
+app.use(
+  session({
+    secret: process.env.SESSION_SECURE,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+// Passport MiddleWare
+app.use(passport.initialize());
+app.use(passport.session());
+
 // APP USE ROUTES
+app.use('/auth', require('./routes/userRoutes'))
 
 const PORT = process.env.PORT || 5000;
 
