@@ -1,7 +1,10 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
 const User = require('../models/userModel');
+
+dotenv.config();
 
 module.exports = function (passport) {
   passport.use(
@@ -12,7 +15,28 @@ module.exports = function (passport) {
         callbackURL: '/auth/google/callback',
       },
       async (accessToken, refreshToken, profile, done) => {
-        console.log(profile);
+        const newUser = new User();
+
+        newUser.email = profile.email[0].value;
+        newUser.google = profile.id;
+
+        // tokens
+
+        newUser.profile.name = profile.displayName;
+        newUser.profile.image = profile.photos[0].value;
+
+        try {
+          let userExist = await User.findOne({ google });
+
+          if (userExist) {
+            done(null, userExist);
+          } else {
+            userExist = await User.create(newUser);
+            done(null, userExist);
+          }
+        } catch (error) {
+          console.error(error);
+        }
       }
     )
   );
