@@ -4,13 +4,11 @@ const userSchema = mongoose.Schema(
   {
     email: { type: String, unique: true },
 
-    google: String,
-    facebook: String,
+    googleID: { type: String },
+    facebookID: { type: String },
 
-    profile: {
-      name: String,
-      image: String,
-    },
+    displayName: { type: String, required: true },
+    image: { type: String },
   },
   { timestamps: true }
 );
