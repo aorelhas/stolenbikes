@@ -11,6 +11,18 @@ export const login = () => async (dispatch) => {
     dispatch({
       type: USER_LOGIN_REQUEST,
     });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const { data } = await axios.post('/auth/google', config);
+
+    dispatch({ USER_LOGIN_SUCCESS, payload: data });
+
+    localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error) {}
 };
 

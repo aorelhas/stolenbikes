@@ -9,7 +9,6 @@ export const userLoginReducer = (state = {}, action) => {
   const { type, payload } = action;
 
   switch (type) {
-    case value:
     case USER_LOGIN_REQUEST:
       return { loading: true };
     case USER_LOGIN_SUCCESS:
