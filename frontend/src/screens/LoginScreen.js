@@ -1,17 +1,35 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../actions/userActions';
+// import { Button } from 'react-bootstrap';
+// import { useDispatch, useSelector } from 'react-redux';
+import GoogleLogin from 'react-google-login';
+// import { FacebookLogin } from 'react-facebook-login';
+import env from 'react-dotenv';
+// import { login } from '../actions/userActions';
 
 const LoginScreen = () => {
-  const dispatch = useDispatch();
+  const googleSuccess = async (res) => {
+    const result = res?.profileObj;
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(login());
+    const token = res?.tokenId;
+    localStorage.setItem('userInfo', JSON.stringify({ result, token }));
   };
 
-  return <Button onClick={submitHandler}>Login</Button>;
+  const googleFailure = () => {
+    console.log('Google Sign In was unsuccessfull. Try Again.');
+  };
+
+  return (
+    <>
+      <GoogleLogin
+        clientId={env.GOOGLE_CLIENT_ID}
+        buttonText="Login"
+        onSuccess={googleSuccess}
+        onFailure={googleFailure}
+        cookiePolicy={'single_host_origin'}
+        isSignedIn={true}
+      />
+    </>
+  );
 };
 
 export default LoginScreen;
