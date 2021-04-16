@@ -1,17 +1,24 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const userSchema = mongoose.Schema(
   {
-    email: { type: String, unique: true },
-
-    googleID: { type: String },
-    facebookID: { type: String },
-
-    displayName: { type: String, required: true },
-    image: { type: String },
+    username: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
+    password: { type: String, required: true },
+    isAdmin: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
 );
+
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) next();
+});
 
 const User = mongoose.model('User', userSchema);
 
