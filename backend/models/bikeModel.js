@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
 const bikeSchema = mongoose.Schema(
   {
@@ -12,8 +12,11 @@ const bikeSchema = mongoose.Schema(
     year: { type: Number },
     location: { type: String, required: true },
     postalCode: { type: String, required: true },
+    isRecovered: { type: Boolean },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model('bike', bikeSchema);
+const Bike = mongoose.model('bike', bikeSchema);
+
+export default Bike;

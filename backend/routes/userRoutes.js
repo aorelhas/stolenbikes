@@ -1,20 +1,9 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const passport = require('passport');
+import { authUser, registerUser } from '../controllers/userControllers.js';
 
-//@desc     Auth With Google
-//@route    GET /auth/google
-router.get('/google', passport.authenticate('google', { scope: ['profile'] }));
+router.route('/').post(registerUser);
 
-//@desc     Google Auth Callback
-//@route    GET /auth/google/callback
-router.get(
-  '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-   (req, res) => {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  }
-);
+router.post('/login', authUser);
 
-module.exports = router;
+export default router;

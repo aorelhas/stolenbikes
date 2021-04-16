@@ -1,12 +1,15 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const colors = require('colors');
-const passport = require('passport');
-const connectDB = require('./config/db');
-const session = require('express-session');
-const morgan = require('morgan');
+import express from 'express';
+import dotenv from 'dotenv';
+import colors from 'colors';
+import passport from 'passport';
+import connectDB from './config/db.js';
+import session from 'express-session';
+import morgan from 'morgan';
 
-require('./config/passport')(passport);
+import userRoutes from './routes/userRoutes.js';
+import bikeRoutes from './routes/bikeRoutes.js';
+
+// require('./config/passport')(passport);
 
 dotenv.config();
 
@@ -15,6 +18,8 @@ connectDB();
 const app = express();
 
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
+
+app.use(express.json());
 
 // Express Session
 app.use(
@@ -30,7 +35,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // APP USE ROUTES
-app.use('/auth', require('./routes/userRoutes'));
+app.use('/api/users', userRoutes);
+app.use('/api/bikes', bikeRoutes);
 
 const PORT = process.env.PORT || 5000;
 
