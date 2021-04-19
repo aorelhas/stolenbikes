@@ -16,7 +16,7 @@ const RegisterScreen = ({ location, history }) => {
   const dispatch = useDispatch();
 
   const userRegister = useSelector((state) => state.userRegister);
-  const { loading, error, userInfo } = userRegister;
+  const { loading, userInfo } = userRegister;
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
@@ -28,9 +28,11 @@ const RegisterScreen = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) console.log('Password do not match');
-
-    dispatch(register(name, email, password));
+    if (password !== confirmPassword) {
+      console.log('Password do not match');
+    } else {
+      dispatch(register(username, name, email, password));
+    }
   };
 
   return (
