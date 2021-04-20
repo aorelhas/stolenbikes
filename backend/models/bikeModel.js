@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const bikeSchema = mongoose.Schema(
   {
@@ -9,6 +9,7 @@ const bikeSchema = mongoose.Schema(
     },
     brand: { type: String, required: true },
     model: { type: String, required: true },
+    nSerie: { type: Number, required: true, unique: true },
     year: { type: Number },
     location: { type: String, required: true },
     postalCode: { type: String, required: true },
