@@ -3,6 +3,9 @@ import {
   CREATE_BIKE_REQUEST,
   CREATE_BIKE_SUCCESS,
   CREATE_BIKE_FAIL,
+  LIST_BIKE_REQUEST,
+  LIST_BIKE_SUCCESS,
+  LIST_BIKE_FAIL,
 } from '../constants/bikeContants';
 
 export const createBike = (
@@ -46,6 +49,28 @@ export const createBike = (
     dispatch({
       type: CREATE_BIKE_FAIL,
       payload: message,
+    });
+  }
+};
+
+// Implement keyword search by nSerie
+export const listBikes = () => async (dispatch) => {
+  try {
+    dispatch({ type: LIST_BIKE_REQUEST });
+
+    const { data } = await axios.get('/api/bikes');
+
+    dispatch({
+      type: LIST_BIKE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: LIST_BIKE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

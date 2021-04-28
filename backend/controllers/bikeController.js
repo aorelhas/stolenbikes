@@ -22,6 +22,7 @@ const createBike = asyncHandler(async (req, res) => {
     model,
     year,
     nSerie,
+    // image,
     location,
     postalCode,
     isRecovered,
@@ -40,8 +41,9 @@ const createBike = asyncHandler(async (req, res) => {
 const getBikes = asyncHandler(async (req, res) => {
   const bikes = await Bike.find();
 
-  if (bikes) res.json(bikes);
-  else {
+  if (bikes) {
+    res.json(bikes);
+  } else {
     res.status(404);
     throw new Error('There is no Bikes!');
   }
