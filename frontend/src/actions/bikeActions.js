@@ -5,7 +5,14 @@ import {
   CREATE_BIKE_FAIL,
 } from '../constants/bikeContants';
 
-export const createBike = () => async (dispatch, getState) => {
+export const createBike = (
+  brand,
+  model,
+  nSerie,
+  year,
+  location,
+  postalCode
+) => async (dispatch, getState) => {
   try {
     dispatch({
       type: CREATE_BIKE_REQUEST,
@@ -21,7 +28,11 @@ export const createBike = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(`/api/bikes/add`, {}, config);
+    const { data } = await axios.post(
+      `/api/bikes/add`,
+      { brand, model, nSerie, location, year, postalCode },
+      config
+    );
 
     dispatch({
       type: CREATE_BIKE_SUCCESS,

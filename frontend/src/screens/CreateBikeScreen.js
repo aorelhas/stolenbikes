@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import FormContainer from '../components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Form, Row, Col } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { createBike } from '../actions/bikeActions';
 
-const CreateBike = () => {
-  // brand, model, nSerie, year, location, postalcode
-  // implement isRecovered
+const CreateBike = ({ history }) => {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [nSerie, setnSerie] = useState('');
@@ -14,8 +12,22 @@ const CreateBike = () => {
   const [location, setLocation] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
+  const dispatch = useDispatch();
+
+  // const createdBike = useSelector((state) => state.createdBike);
+  // const { bike, success, error } = createdBike;
+
   
-  const submitHandler = (e) => {};
+  // useEffect(() => {
+  //   if(success){
+  //     history.push(`/bike/${bike._id}`)
+  //   }
+  // }, [history, success])
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(createBike(brand, model, nSerie, year, location, postalCode));
+  };
 
   return (
     <FormContainer>
@@ -24,7 +36,7 @@ const CreateBike = () => {
         <Form.Group controlId="brand">
           <Form.Label>Marca</Form.Label>
           <Form.Control
-            type="brand"
+            type="text"
             placeholder="Marca"
             value={brand}
             onChange={(e) => setBrand(e.target.value)}
@@ -34,7 +46,7 @@ const CreateBike = () => {
         <Form.Group controlId="model">
           <Form.Label>Modelo</Form.Label>
           <Form.Control
-            type="model"
+            type="text"
             placeholder="Modelo"
             value={model}
             onChange={(e) => setModel(e.target.value)}
@@ -44,7 +56,7 @@ const CreateBike = () => {
         <Form.Group controlId="nSerie">
           <Form.Label>Número Série</Form.Label>
           <Form.Control
-            type="nSerie"
+            type="text"
             placeholder="Número Série"
             value={nSerie}
             onChange={(e) => setnSerie(e.target.value)}
@@ -54,7 +66,7 @@ const CreateBike = () => {
         <Form.Group controlId="year">
           <Form.Label>Ano</Form.Label>
           <Form.Control
-            type="ano"
+            type="number"
             placeholder="Ano"
             value={year}
             onChange={(e) => setYear(e.target.value)}
@@ -74,7 +86,7 @@ const CreateBike = () => {
         <Form.Group controlId="postalCode">
           <Form.Label>Código Postal</Form.Label>
           <Form.Control
-            type="text"
+            type="number"
             placeholder="Código Postal"
             value={postalCode}
             onChange={(e) => setPostalCode(e.target.value)}

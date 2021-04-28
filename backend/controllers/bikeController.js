@@ -6,13 +6,22 @@ import Bike from '../models/bikeModel.js';
 //@route    POST /api/bike/add
 //@access   Private
 const createBike = asyncHandler(async (req, res) => {
-  const { brand, model, year, location, postalCode, isRecovered } = req.body;
+  const {
+    brand,
+    model,
+    year,
+    nSerie,
+    location,
+    postalCode,
+    isRecovered,
+  } = req.body;
 
   const stolenBike = new Bike({
     user: req.user._id,
     brand,
     model,
     year,
+    nSerie,
     location,
     postalCode,
     isRecovered,
