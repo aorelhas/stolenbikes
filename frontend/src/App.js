@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
+import { Container } from 'react-bootstrap';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -14,14 +14,14 @@ const App = () => {
   return (
     <Router>
       <Header />
+      <Container>
+        <Route path="/login" component={LoginScreen} />
+        <Route path="/register" component={RegisterScreen} />
+        <Route path="/addbike" component={CreateBikeScreen} />
+        <Route path="/bike/:id" component={BikeScreen} />
 
-      <Route path="/login" component={LoginScreen} />
-      <Route path="/register" component={RegisterScreen} />
-      <Route path="/addbike" component={CreateBikeScreen} />
-      <Route path="/bike/:id" component={BikeScreen} />
-
-      <Route path="/" component={HomeScreen} exact />
-
+        <Route path="/" component={HomeScreen} exact />
+      </Container>
       <Footer />
     </Router>
   );

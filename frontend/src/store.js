@@ -13,7 +13,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
 
-  createBike: createBikeReducer,
+  createNewBike: createBikeReducer,
   listBike: listBikeReducer,
   bikeDetail: bikeDetailReducer,
 });

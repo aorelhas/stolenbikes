@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Row, Col } from 'react-bootstrap';
 import Loader from '../components/Loader';
+import Message from '../components/Message';
 import { login } from '../actions/userActions';
 import FormContainer from '../components/FormContainer';
-
-// TO-DO:
-//  -> Implement ERROR!
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('');
@@ -16,7 +14,7 @@ const LoginScreen = ({ location, history }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, userInfo } = userLogin;
+  const { loading, error, userInfo } = userLogin;
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
@@ -34,7 +32,7 @@ const LoginScreen = ({ location, history }) => {
   return (
     <FormContainer>
       <h1>Sign In</h1>
-      {/* {error && <Message variant="danger">{error}</Message>} */}
+      {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="email">

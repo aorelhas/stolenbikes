@@ -3,6 +3,7 @@ import FormContainer from '../components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
 import { createBike } from '../actions/bikeActions';
+import { CREATE_NEW_BIKE_RESET } from '../constants/bikeContants';
 
 const CreateBike = ({ history }) => {
   const [brand, setBrand] = useState('');
@@ -14,15 +15,15 @@ const CreateBike = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  // const createdBike = useSelector((state) => state.createdBike);
-  // const { bike, success, error } = createdBike;
+  const createNewBike = useSelector((state) => state.createNewBike);
+  const { bike, success, error } = createNewBike;
 
-  
-  // useEffect(() => {
-  //   if(success){
-  //     history.push(`/bike/${bike._id}`)
-  //   }
-  // }, [history, success])
+  useEffect(() => {
+    if (success) {
+      history.push('/');
+      dispatch({ type: CREATE_NEW_BIKE_RESET });
+    }
+  }, [history, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();

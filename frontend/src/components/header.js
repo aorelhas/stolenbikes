@@ -38,6 +38,10 @@ const Header = () => {
                     <NavDropdown.Item>Minhas Bicicletas</NavDropdown.Item>
                   </LinkContainer>
 
+                  <LinkContainer to="/myaccount">
+                    <NavDropdown.Item>Dados da Conta</NavDropdown.Item>
+                  </LinkContainer>
+
                   <NavDropdown.Item onClick={logoutHandler}>
                     Sair
                   </NavDropdown.Item>

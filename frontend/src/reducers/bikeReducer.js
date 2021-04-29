@@ -8,6 +8,7 @@ import {
   BIKE_DETAIL_REQUEST,
   BIKE_DETAIL_SUCCESS,
   BIKE_DETAIL_FAIL,
+  CREATE_NEW_BIKE_RESET,
 } from '../constants/bikeContants';
 
 export const createBikeReducer = (state = {}, action) => {
@@ -20,6 +21,8 @@ export const createBikeReducer = (state = {}, action) => {
       return { loading: false, success: true, bikes: payload };
     case CREATE_BIKE_FAIL:
       return { loading: false, error: payload };
+    case CREATE_NEW_BIKE_RESET:
+      return {};
     default:
       return state;
   }
