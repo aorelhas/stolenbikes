@@ -5,6 +5,9 @@ import {
   LIST_BIKE_REQUEST,
   LIST_BIKE_SUCCESS,
   LIST_BIKE_FAIL,
+  BIKE_DETAIL_REQUEST,
+  BIKE_DETAIL_SUCCESS,
+  BIKE_DETAIL_FAIL,
 } from '../constants/bikeContants';
 
 export const createBikeReducer = (state = {}, action) => {
@@ -31,6 +34,21 @@ export const listBikeReducer = (state = { bikes: [] }, action) => {
     case LIST_BIKE_SUCCESS:
       return { loading: false, bikes: payload };
     case LIST_BIKE_FAIL:
+      return { loading: false, error: payload };
+    default:
+      return state;
+  }
+};
+
+export const bikeDetailReducer = (state = { bike: [] }, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case BIKE_DETAIL_REQUEST:
+      return { loading: true, ...state };
+    case BIKE_DETAIL_SUCCESS:
+      return { loading: false, bike: payload };
+    case BIKE_DETAIL_FAIL:
       return { loading: false, error: payload };
     default:
       return state;

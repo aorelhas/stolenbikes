@@ -6,6 +6,9 @@ import {
   LIST_BIKE_REQUEST,
   LIST_BIKE_SUCCESS,
   LIST_BIKE_FAIL,
+  BIKE_DETAIL_REQUEST,
+  BIKE_DETAIL_SUCCESS,
+  BIKE_DETAIL_FAIL,
 } from '../constants/bikeContants';
 
 export const createBike = (
@@ -67,6 +70,27 @@ export const listBikes = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LIST_BIKE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listBikeDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: BIKE_DETAIL_REQUEST });
+
+    const { data } = await axios.get(`/api/bikes/${id}`);
+
+    dispatch({
+      type: BIKE_DETAIL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: BIKE_DETAIL_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
