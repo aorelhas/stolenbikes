@@ -4,16 +4,16 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listBikes } from '../actions/bikeActions';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
-const UserAccount = ({ location, history }) => {
+const UserAccount = ({ history }) => {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -35,6 +35,7 @@ const UserAccount = ({ location, history }) => {
     } else {
       if (!user.username || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
+        dispatch(getUserDetails('profile'));
       } else {
         setEmail(user.email);
         setName(user.name);
@@ -46,8 +47,7 @@ const UserAccount = ({ location, history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      //   setMessage('Password do not match!');
-      console.log('PW Do not match');
+        setMessage('Password do not match!');
     }
     dispatch(updateUserProfile({ id: user._id, name, email, password }));
   };
@@ -57,6 +57,10 @@ const UserAccount = ({ location, history }) => {
       <Row>
         <Col md={3} className="mt-2">
           <h3>Dados Pessoais</h3>
+          {message && <Message variant="danger">{message}</Message>}
+          {error && <Message variant="danger">{error}</Message>}
+          {success && <Message variant="success">Profile Updated</Message>}
+          {loading && <Loader />}
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="username">
               <Form.Label>Username</Form.Label>
