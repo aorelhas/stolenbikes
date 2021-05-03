@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listBikes } from '../actions/bikeActions';
+import { getUserDetails, updateUserProfile } from '../actions/userActions';
+import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
 const UserAccount = ({ location, history }) => {
   const [email, setEmail] = useState('');
@@ -13,36 +15,41 @@ const UserAccount = ({ location, history }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  //   const userDetails = useSelector((state) => state.userDetails);
-  //   const { loading, error, user } = userDetails;
+  const userDetails = useSelector((state) => state.userDetails);
+  const { loading, error, user } = userDetails;
 
-  //   const userLogin = useSelector((state) => state.userLogin);
-  //   const { userInfo } = userLogin;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-  //   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  //   const { success } = userUpdateProfile;
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
+  const { success } = userUpdateProfile;
 
   const listBike = useSelector((state) => state.listBike);
   const { bikes } = listBike;
 
-  //   useEffect(() => {
-  //     if (!userInfo) {
-  //       history.push();
-  //     } else {
-  //       if (!user.username || success) {
-  //         dispatch({ type: USER_UPDATE_PROFILE_RESET });
-  //       } else {
-  //         setEmail(user.email);
-  //         setName(user.name);
-  //         setUsername(user.username);
-  //       }
-  //     }
-  //   }, [dispatch, history, userInfo, user, success]);
+  useEffect(() => {
+    if (!userInfo) {
+      history.push('/login');
+    } else {
+      if (!user.username || success) {
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
+      } else {
+        setEmail(user.email);
+        setName(user.name);
+        setUsername(user.username);
+      }
+    }
+  }, [dispatch, history, userInfo, user, success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      //   setMessage('Password do not match!');
+      console.log('PW Do not match');
+    }
+    dispatch(updateUserProfile({ id: user._id, name, email, password }));
   };
 
   return (
