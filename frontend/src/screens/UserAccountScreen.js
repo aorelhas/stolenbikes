@@ -4,7 +4,11 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { getUserDetails, updateUserProfile } from '../actions/userActions';
+import {
+  getUserDetails,
+  updateUserProfile,
+  deleteUser,
+} from '../actions/userActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
 const UserAccount = ({ history }) => {
@@ -26,6 +30,7 @@ const UserAccount = ({ history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
+  // change to list my bikes
   const listBike = useSelector((state) => state.listBike);
   const { bikes } = listBike;
 
@@ -33,13 +38,13 @@ const UserAccount = ({ history }) => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      if (!user.username || success) {
+      if (!user.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
-        dispatch(getUserDetails('profile'));
+        // dispatch(getUserDetails('profile'));
       } else {
-        setEmail(user.email);
         setName(user.name);
         setUsername(user.username);
+        setEmail(user.email);
       }
     }
   }, [dispatch, history, userInfo, user, success]);
@@ -47,9 +52,15 @@ const UserAccount = ({ history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-        setMessage('Password do not match!');
+      setMessage('Password do not match!');
     }
     dispatch(updateUserProfile({ id: user._id, name, email, password }));
+  };
+
+  const deleteHandler = (id) => {
+    if (window.confirm('Esta ação não poderá ser revertida, tem a certeza?')) {
+      dispatch(deleteUser(id));
+    }
   };
 
   return (
@@ -154,7 +165,15 @@ const UserAccount = ({ history }) => {
 
       <Row>
         <Col md={{ span: 3, offset: 10 }}>
-          <Button type="delete" variant="danger" className="mt-3 mb-3">
+          <Button
+            type="delete"
+            variant="danger"
+            className="mt-3 mb-3 btn-sm"
+            onClick={() => {
+              deleteHandler(user._id);
+            }}
+          >
+            <i className="fas fa-trash"></i>
             Delete Account
           </Button>
         </Col>
