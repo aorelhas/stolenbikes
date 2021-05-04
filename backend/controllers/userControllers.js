@@ -116,11 +116,11 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @access   Private
 const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id).select('-password');
-  const bike = await Bike.findById(req.user._id);
+
+  const bike = await Bike.findOne({ user: req.user._id });
 
   if (bike) {
     await bike.remove();
-    res.json({ message: 'Bikes removed!' });
   }
 
   if (user) {

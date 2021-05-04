@@ -8,6 +8,7 @@ import {
   getUserDetails,
   updateUserProfile,
   deleteUser,
+  logout,
 } from '../actions/userActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
@@ -38,13 +39,13 @@ const UserAccount = ({ history }) => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      if (!user.name || success) {
+      if (!userInfo.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
-        // dispatch(getUserDetails('profile'));
+        dispatch(getUserDetails('profile'));
       } else {
-        setName(user.name);
-        setUsername(user.username);
-        setEmail(user.email);
+        setName(userInfo.name);
+        setUsername(userInfo.username);
+        setEmail(userInfo.email);
       }
     }
   }, [dispatch, history, userInfo, user, success]);
@@ -60,6 +61,8 @@ const UserAccount = ({ history }) => {
   const deleteHandler = (id) => {
     if (window.confirm('Esta ação não poderá ser revertida, tem a certeza?')) {
       dispatch(deleteUser(id));
+      dispatch(logout());
+      setMessage('Conta removida.');
     }
   };
 
@@ -170,7 +173,7 @@ const UserAccount = ({ history }) => {
             variant="danger"
             className="mt-3 mb-3 btn-sm"
             onClick={() => {
-              deleteHandler(user._id);
+              deleteHandler(userInfo._id);
             }}
           >
             <i className="fas fa-trash"></i>
