@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
-
 import Bike from '../models/bikeModel.js';
+import User from '../models/userModel.js';
 
 //@desc     Create new Lost Bike
 //@route    POST /api/bike/add
@@ -63,4 +63,18 @@ const getBikeById = asyncHandler(async (req, res) => {
   }
 });
 
-export { createBike, getBikeById, getBikes };
+// @desc     Fetch all bikes from specific user
+// @route    GET /api/bike/mybikes
+// @access   Private
+const getMyBikes = asyncHandler(async (req, res) => {
+  const myBike = await Bike.find({ user: req.user._id });
+
+  if (myBike) {
+    res.json(myBike);
+  } else {
+    res.status(404);
+    throw new Error('There is no bikes registered as lost.');
+  }
+});
+
+export { createBike, getBikeById, getBikes, getMyBikes };

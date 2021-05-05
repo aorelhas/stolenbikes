@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import {
-  getUserDetails,
+  //   getUserDetails,
   updateUserProfile,
   deleteUser,
   logout,
 } from '../actions/userActions';
+// import { getMyOwnBikes } from '../actions/bikeActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
 const UserAccount = ({ history }) => {
@@ -32,8 +33,11 @@ const UserAccount = ({ history }) => {
   const { success } = userUpdateProfile;
 
   // change to list my bikes
-  const listBike = useSelector((state) => state.listBike);
-  const { bikes } = listBike;
+  //   const listBike = useSelector((state) => state.listBike);
+  //   const { bikes } = listBike;
+
+  const getMyBikes = useSelector((state) => state.getMyBikes);
+  const { bikes } = getMyBikes;
 
   //   TODO -> Change to user Details (user)
   useEffect(() => {

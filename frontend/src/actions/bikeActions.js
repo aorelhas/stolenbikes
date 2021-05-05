@@ -9,6 +9,9 @@ import {
   BIKE_DETAIL_REQUEST,
   BIKE_DETAIL_SUCCESS,
   BIKE_DETAIL_FAIL,
+  MY_BIKE_REQUEST,
+  MY_BIKE_SUCCESS,
+  MY_BIKE_FAIL,
 } from '../constants/bikeContants';
 
 export const createBike = (
@@ -95,6 +98,38 @@ export const listBikeDetails = (id) => async (dispatch) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
+    });
+  }
+};
+
+export const getMyOwnBikes = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: MY_BIKE_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get('/api/bikes/mybikes', config);
+
+    dispatch({
+      type: MY_BIKE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: MY_BIKE_FAIL,
+      payload: message,
     });
   }
 };
