@@ -35,13 +35,14 @@ const UserAccount = ({ history }) => {
   const listBike = useSelector((state) => state.listBike);
   const { bikes } = listBike;
 
+  //   TODO -> Change to user Details (user)
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
     } else {
       if (!userInfo.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
-        dispatch(getUserDetails('profile'));
+        // dispatch(getUserDetails('profile'));
       } else {
         setName(userInfo.name);
         setUsername(userInfo.username);
@@ -55,7 +56,9 @@ const UserAccount = ({ history }) => {
     if (password !== confirmPassword) {
       setMessage('Password do not match!');
     }
-    dispatch(updateUserProfile({ id: user._id, name, email, password }));
+    dispatch(
+      updateUserProfile({ id: userInfo._id, name, email, username, password })
+    );
   };
 
   const deleteHandler = (id) => {
