@@ -10,7 +10,7 @@ import {
   deleteUser,
   logout,
 } from '../actions/userActions';
-// import { getMyOwnBikes } from '../actions/bikeActions';
+import { getMyOwnBikes } from '../actions/bikeActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
 const UserAccount = ({ history }) => {
@@ -32,12 +32,8 @@ const UserAccount = ({ history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
-  // change to list my bikes
-  //   const listBike = useSelector((state) => state.listBike);
-  //   const { bikes } = listBike;
-
   const getMyBikes = useSelector((state) => state.getMyBikes);
-  const { bikes } = getMyBikes;
+  const { loading: loadingBikes, error: errorBikes, bikes } = getMyBikes;
 
   //   TODO -> Change to user Details (user)
   useEffect(() => {
@@ -48,6 +44,7 @@ const UserAccount = ({ history }) => {
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         // dispatch(getUserDetails('profile'));
       } else {
+        dispatch(getMyOwnBikes());
         setName(userInfo.name);
         setUsername(userInfo.username);
         setEmail(userInfo.email);
@@ -141,35 +138,41 @@ const UserAccount = ({ history }) => {
 
         <Col md={9} className="mt-2">
           <h3>Minhas Bicicletas</h3>
-          <Table striped bordered hover responsive className="table-sm">
-            <thead>
-              <tr>
-                <th>Marca</th>
-                <th>Modelo</th>
-                <th>Ano</th>
-                <th>Encontrada</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {bikes.map((bike) => (
-                <tr key={bike._id}>
-                  <td>{bike.brand}</td>
-                  <td>{bike.model}</td>
-                  <td>{bike.year}</td>
-                  <td>{bike.isRecovered}</td>
-                  <td>
-                    {/* Create new page for detailing own bikes */}
-                    <LinkContainer to={`/bike/${bike._id}`}>
-                      <Button className="btn-sm" variant="light">
-                        Detalhes
-                      </Button>
-                    </LinkContainer>
-                  </td>
+          {loadingBikes ? (
+            <Loader />
+          ) : errorBikes ? (
+            <Message variant="danger">{errorBikes}</Message>
+          ) : (
+            <Table striped bordered hover responsive className="table-sm">
+              <thead>
+                <tr>
+                  <th>Marca</th>
+                  <th>Modelo</th>
+                  <th>Ano</th>
+                  <th>Encontrada</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {bikes.map((bike) => (
+                  <tr key={bike._id}>
+                    <td>{bike.brand}</td>
+                    <td>{bike.model}</td>
+                    <td>{bike.year}</td>
+                    <td>{bike.isRecovered}</td>
+                    <td>
+                      {/* Create new page for detailing own bikes */}
+                      <LinkContainer to={`/bike/${bike._id}`}>
+                        <Button className="btn-sm" variant="light">
+                          Detalhes
+                        </Button>
+                      </LinkContainer>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          )}
         </Col>
       </Row>
 

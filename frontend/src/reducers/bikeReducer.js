@@ -61,14 +61,14 @@ export const bikeDetailReducer = (state = { bike: [] }, action) => {
   }
 };
 
-export const getMyBikesReducer = (state = { bike: [] }, action) => {
+export const getMyBikesReducer = (state = { bikes: [] }, action) => {
   const { type, payload } = action;
 
   switch (type) {
     case MY_BIKE_REQUEST:
-      return { loading: true, bike: [] };
+      return { loading: true };
     case MY_BIKE_SUCCESS:
-      return { loading: false, bike: payload };
+      return { loading: false, bikes: payload };
     case MY_BIKE_FAIL:
       return { loading: false, error: payload };
     default:
