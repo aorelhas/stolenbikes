@@ -9,6 +9,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import CreateBikeScreen from './screens/CreateBikeScreen';
 import BikeScreen from './screens/BikeScreen';
+import MyBikeScreen from './screens/MyBikeScreen';
 import UserAccountScreen from './screens/UserAccountScreen';
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/addbike" component={CreateBikeScreen} />
         <Route path="/profile" component={UserAccountScreen} />
         <Route path="/bike/:id" component={BikeScreen} />
+        <Route path="/mybike/:id" component={MyBikeScreen} />
 
         <Route path="/" component={HomeScreen} exact />
       </Container>

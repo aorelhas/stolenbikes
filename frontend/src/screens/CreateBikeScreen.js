@@ -11,6 +11,7 @@ const CreateBike = ({ history }) => {
   const [nSerie, setnSerie] = useState('');
   const [year, setYear] = useState('');
   const [location, setLocation] = useState('');
+  const [description, setDescription] = useState('');
   const [postalCode, setPostalCode] = useState('');
 
   const dispatch = useDispatch();
@@ -27,7 +28,9 @@ const CreateBike = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createBike(brand, model, nSerie, year, location, postalCode));
+    dispatch(
+      createBike(brand, model, nSerie, year, location, description, postalCode)
+    );
   };
 
   return (
@@ -94,6 +97,15 @@ const CreateBike = ({ history }) => {
           ></Form.Control>
         </Form.Group>
 
+        <Form.Group controlId="description">
+          <Form.Label>Descrição</Form.Label>
+          <Form.Control
+            as="textarea"
+            placeholder="Descrição"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          ></Form.Control>
+        </Form.Group>
         <Button type="submit" variant="primary">
           Registar Bicicleta
         </Button>

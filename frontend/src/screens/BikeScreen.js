@@ -62,6 +62,10 @@ const BikeScreen = ({ match }) => {
                 </ListGroup.Item>
 
                 <ListGroup.Item>
+                  <strong>Descrição:</strong> {bike.description}
+                </ListGroup.Item>
+
+                <ListGroup.Item>
                   <strong>Cód. Postal:</strong> {bike.postalCode}
                 </ListGroup.Item>
               </ListGroup>

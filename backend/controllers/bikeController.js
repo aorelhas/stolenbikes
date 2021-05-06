@@ -13,6 +13,7 @@ const createBike = asyncHandler(async (req, res) => {
     nSerie,
     location,
     postalCode,
+    description,
     isRecovered,
   } = req.body;
 
@@ -25,6 +26,7 @@ const createBike = asyncHandler(async (req, res) => {
     // image,
     location,
     postalCode,
+    description,
     isRecovered,
   });
 

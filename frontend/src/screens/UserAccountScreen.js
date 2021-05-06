@@ -70,6 +70,10 @@ const UserAccount = ({ history }) => {
     }
   };
 
+  const deleteBikeHandler = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <Row>
@@ -162,11 +166,21 @@ const UserAccount = ({ history }) => {
                     <td>{bike.isRecovered}</td>
                     <td>
                       {/* Create new page for detailing own bikes */}
-                      <LinkContainer to={`/bike/${bike._id}`}>
+                      <LinkContainer to={`/mybike/${bike._id}`}>
                         <Button className="btn-sm" variant="light">
                           Detalhes
                         </Button>
                       </LinkContainer>
+
+                      <Button
+                        variant="danger"
+                        className="btn-sm"
+                        onClick={() => {
+                          deleteBikeHandler();
+                        }}
+                      >
+                        X
+                      </Button>
                     </td>
                   </tr>
                 ))}

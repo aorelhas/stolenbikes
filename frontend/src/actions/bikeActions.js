@@ -20,6 +20,7 @@ export const createBike = (
   nSerie,
   year,
   location,
+  description,
   postalCode
 ) => async (dispatch, getState) => {
   try {
@@ -39,7 +40,7 @@ export const createBike = (
 
     const { data } = await axios.post(
       `/api/bikes/add`,
-      { brand, model, nSerie, location, year, postalCode },
+      { brand, model, nSerie, location, year, description, postalCode },
       config
     );
 

@@ -14,6 +14,7 @@ const bikeSchema = mongoose.Schema(
     // image: { type: String, required: true },
     location: { type: String, required: true },
     postalCode: { type: String, required: true },
+    description: { type: String },
     isRecovered: { type: Boolean },
   },
   { timestamps: true }
