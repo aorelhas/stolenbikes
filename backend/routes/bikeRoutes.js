@@ -5,12 +5,18 @@ import {
   getBikeById,
   getBikes,
   getMyBikes,
+  updateMyBike,
+  deleteBike,
 } from '../controllers/bikeController.js';
 import { protect, admin } from '../middleware/authMiddleWare.js';
 
 router.route('/').get(getBikes);
 router.post('/add', protect, createBike);
 router.route('/mybikes').get(protect, getMyBikes);
+router
+  .route('/mybike/:id')
+  .put(protect, updateMyBike)
+  .delete(protect, deleteBike);
 router.route('/:id').get(getBikeById);
 
 export default router;

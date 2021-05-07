@@ -12,6 +12,13 @@ import {
   MY_BIKE_REQUEST,
   MY_BIKE_SUCCESS,
   MY_BIKE_FAIL,
+  MY_BIKE_UPDATE_REQUEST,
+  MY_BIKE_UPDATE_SUCCESS,
+  MY_BIKE_UPDATE_FAIL,
+  MY_BIKE_DELETE_REQUEST,
+  MY_BIKE_DELETE_SUCCESS,
+  MY_BIKE_DELETE_FAIL,
+  MY_BIKE_UPDATE_RESET,
 } from '../constants/bikeContants';
 
 export const createBikeReducer = (state = {}, action) => {
@@ -70,6 +77,38 @@ export const getMyBikesReducer = (state = { bikes: [] }, action) => {
     case MY_BIKE_SUCCESS:
       return { loading: false, bikes: payload };
     case MY_BIKE_FAIL:
+      return { loading: false, error: payload };
+    default:
+      return state;
+  }
+};
+
+export const bikeUpdateReducer = (state = { bike: {} }, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case MY_BIKE_UPDATE_REQUEST:
+      return { ...state, loading: true };
+    case MY_BIKE_UPDATE_SUCCESS:
+      return { loading: false, bike: payload, success: true };
+    case MY_BIKE_UPDATE_FAIL:
+      return { loading: false, error: payload };
+    case MY_BIKE_UPDATE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const bikeDeleteReducer = (state = {}, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case MY_BIKE_DELETE_REQUEST:
+      return { loading: true };
+    case MY_BIKE_DELETE_SUCCESS:
+      return { loading: false, success: true };
+    case MY_BIKE_DELETE_FAIL:
       return { loading: false, error: payload };
     default:
       return state;

@@ -16,7 +16,7 @@ import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
 import { listBikeDetails } from '../actions/bikeActions';
 
-const MyBikeScreen = ({ match }) => {
+const MyBikeScreen = ({ history, match }) => {
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [nSerie, setnSerie] = useState('');
@@ -31,13 +31,23 @@ const MyBikeScreen = ({ match }) => {
   const bikeDetail = useSelector((state) => state.bikeDetail);
   const { loading, error, bike } = bikeDetail;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
-    dispatch(listBikeDetails(match.params.id));
-  }, [dispatch, match]);
+    if (!userInfo) {
+      history.push('/login');
+    } else {
+      if (!bike.brand) {
+      } else {
+        dispatch(listBikeDetails(match.params.id));
+        setBrand(bike.brand);
+      }
+    }
+  }, [dispatch, history, match]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(isRecovered);
   };
 
   return (
