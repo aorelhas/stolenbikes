@@ -12,6 +12,13 @@ import {
   MY_BIKE_REQUEST,
   MY_BIKE_SUCCESS,
   MY_BIKE_FAIL,
+  MY_BIKE_UPDATE_REQUEST,
+  MY_BIKE_UPDATE_SUCCESS,
+  MY_BIKE_UPDATE_FAIL,
+  MY_BIKE_DELETE_REQUEST,
+  MY_BIKE_DELETE_SUCCESS,
+  MY_BIKE_DELETE_FAIL,
+  MY_BIKE_UPDATE_RESET,
 } from '../constants/bikeContants';
 
 export const createBike = (
@@ -130,6 +137,69 @@ export const getMyOwnBikes = () => async (dispatch, getState) => {
         : error.message;
     dispatch({
       type: MY_BIKE_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const bikeUpdate = (bike) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: MY_BIKE_UPDATE_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/bike/mybike/${bike.id}`,
+      bike,
+      config
+    );
+
+    dispatch({ type: MY_BIKE_UPDATE_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.message && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: MY_BIKE_UPDATE_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const deleteBike = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: MY_BIKE_DELETE_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.delete(`/api/bike/mybike/${id}`, config);
+
+    dispatch({ type: MY_BIKE_DELETE_SUCCESS });
+  } catch (error) {
+    const message =
+      error.message && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: MY_BIKE_DELETE_FAIL,
       payload: message,
     });
   }
