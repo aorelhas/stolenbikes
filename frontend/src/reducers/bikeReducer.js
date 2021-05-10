@@ -8,6 +8,7 @@ import {
   BIKE_DETAIL_REQUEST,
   BIKE_DETAIL_SUCCESS,
   BIKE_DETAIL_FAIL,
+  BIKE_DETAIL_RESET,
   CREATE_NEW_BIKE_RESET,
   MY_BIKE_REQUEST,
   MY_BIKE_SUCCESS,
@@ -53,16 +54,18 @@ export const listBikeReducer = (state = { bikes: [] }, action) => {
   }
 };
 
-export const bikeDetailReducer = (state = { bike: [] }, action) => {
+export const bikeDetailReducer = (state = { bike: {} }, action) => {
   const { type, payload } = action;
 
   switch (type) {
     case BIKE_DETAIL_REQUEST:
-      return { loading: true, ...state };
+      return { ...state, loading: true };
     case BIKE_DETAIL_SUCCESS:
       return { loading: false, bike: payload };
     case BIKE_DETAIL_FAIL:
       return { loading: false, error: payload };
+    case BIKE_DETAIL_RESET:
+      return { bike: {} };
     default:
       return state;
   }

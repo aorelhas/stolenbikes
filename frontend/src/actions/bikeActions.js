@@ -19,6 +19,7 @@ import {
   MY_BIKE_DELETE_SUCCESS,
   MY_BIKE_DELETE_FAIL,
   MY_BIKE_UPDATE_RESET,
+  BIKE_DETAIL_RESET,
 } from '../constants/bikeContants';
 
 export const createBike = (
@@ -163,7 +164,10 @@ export const bikeUpdate = (bike) => async (dispatch, getState) => {
       config
     );
 
-    dispatch({ type: MY_BIKE_UPDATE_SUCCESS, payload: data });
+    // dispatch({ type: MY_BIKE_UPDATE_SUCCESS, payload: data });
+    dispatch({ type: MY_BIKE_UPDATE_SUCCESS });
+    dispatch({ type: BIKE_DETAIL_SUCCESS, payload: data });
+    dispatch({ type: BIKE_DETAIL_RESET });
   } catch (error) {
     const message =
       error.message && error.response.data.message
