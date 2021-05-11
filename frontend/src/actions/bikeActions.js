@@ -158,7 +158,7 @@ export const bikeUpdate = (bike) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(`/api/bikes/${bike.id}`, bike, config);
+    const { data } = await axios.put(`/api/bikes/${bike._id}`, bike, config);
 
     dispatch({ type: MY_BIKE_UPDATE_SUCCESS, payload: data });
     // dispatch({ type: MY_BIKE_UPDATE_SUCCESS });

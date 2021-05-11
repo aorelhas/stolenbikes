@@ -20,8 +20,6 @@ import { MY_BIKE_UPDATE_RESET } from '../constants/bikeContants';
 const MyBikeScreen = ({ history, match }) => {
   const bikeId = match.params.id;
 
-  console.log(bikeId)
-
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [nSerie, setnSerie] = useState('');
@@ -56,10 +54,11 @@ const MyBikeScreen = ({ history, match }) => {
         setIsRecovered(bike.isRecovered);
       }
     }
-  }, [dispatch, history, bikeId]);
+  }, [dispatch, history, bike, bikeId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    
     dispatch(
       bikeUpdate({
         _id: bikeId,
@@ -68,8 +67,8 @@ const MyBikeScreen = ({ history, match }) => {
         nSerie,
         year,
         location,
-        description,
         postalCode,
+        description,
         isRecovered,
       })
     );
