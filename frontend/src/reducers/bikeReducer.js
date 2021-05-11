@@ -91,13 +91,13 @@ export const bikeUpdateReducer = (state = { bike: {} }, action) => {
 
   switch (type) {
     case MY_BIKE_UPDATE_REQUEST:
-      return { ...state, loading: true };
+      return { loading: true };
     case MY_BIKE_UPDATE_SUCCESS:
-      return { loading: false, bike: payload, success: true };
+      return { loading: false, success: true, bike: payload };
     case MY_BIKE_UPDATE_FAIL:
       return { loading: false, error: payload };
     case MY_BIKE_UPDATE_RESET:
-      return {};
+      return { bike: {} };
     default:
       return state;
   }

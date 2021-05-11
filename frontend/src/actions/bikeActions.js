@@ -158,16 +158,12 @@ export const bikeUpdate = (bike) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(
-      `/api/bike/mybike/${bike.id}`,
-      bike,
-      config
-    );
+    const { data } = await axios.put(`/api/bikes/${bike.id}`, bike, config);
 
-    // dispatch({ type: MY_BIKE_UPDATE_SUCCESS, payload: data });
-    dispatch({ type: MY_BIKE_UPDATE_SUCCESS });
-    dispatch({ type: BIKE_DETAIL_SUCCESS, payload: data });
-    dispatch({ type: BIKE_DETAIL_RESET });
+    dispatch({ type: MY_BIKE_UPDATE_SUCCESS, payload: data });
+    // dispatch({ type: MY_BIKE_UPDATE_SUCCESS });
+    // dispatch({ type: BIKE_DETAIL_SUCCESS, payload: data });
+    // dispatch({ type: BIKE_DETAIL_RESET });
   } catch (error) {
     const message =
       error.message && error.response.data.message
@@ -194,7 +190,7 @@ export const deleteBike = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`/api/bike/mybike/${id}`, config);
+    await axios.delete(`/api/bikes/${id}`, config);
 
     dispatch({ type: MY_BIKE_DELETE_SUCCESS });
   } catch (error) {

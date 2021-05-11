@@ -80,34 +80,34 @@ const getMyBikes = asyncHandler(async (req, res) => {
 });
 
 // @desc     Update Bike Details
-// @route    PUT /api/bike/mybikes/:id
+// @route    PUT /api/bikes/mybikes/:id
 // @access   Private
 const updateMyBike = asyncHandler(async (req, res) => {
+  const {
+    brand,
+    model,
+    nSerie,
+    year,
+    location,
+    postalCode,
+    description,
+    isRecovered,
+  } = req.body;
+
   const bike = await Bike.findById(req.params.id);
 
   if (bike) {
-    bike.brand = req.body.brand || bike.brand;
-    bike.model = req.body.model || bike.model;
-    bike.nSerie = req.body.nSerie || bike.nSerie;
-    bike.year = req.body.year || bike.year;
-    bike.location = req.body.location || bike.location;
-    bike.postalCode = req.body.postalCode || bike.postalCode;
-    bike.description = req.body.description || bike.description;
-    bike.isRecovered = req.body.isRecovered || bike.isRecovered;
+    bike.brand = brand;
+    bike.model = model;
+    bike.nSerie = nSerie;
+    bike.year = year;
+    bike.location = location;
+    bike.postalCode = postalCode;
+    bike.description = description;
+    bike.isRecovered = isRecovered;
 
     const updateBike = await bike.save();
-
-    res.json({
-      _id: updateBike._id,
-      brand: updateBike.brand,
-      model: updateBike.model,
-      nSerie: updateBike.nSerie,
-      year: updateBike.year,
-      location: updateBike.location,
-      postalCode: updateBike.postalCode,
-      description: updateBike.description,
-      isRecovered: updateBike.isRecovered,
-    });
+    res.status(201).json(updateBike);
   } else {
     res.status(404);
     throw new Error('Bicicleta não encontrada!!');
@@ -115,7 +115,7 @@ const updateMyBike = asyncHandler(async (req, res) => {
 });
 
 // @desc     Delete User
-// @route    DELETE /api/bike/mybikes/:id
+// @route    DELETE /api/bikes/:id
 // @access   Private
 const deleteBike = asyncHandler(async (req, res) => {
   const bike = await Bike.findById(req.params.id);

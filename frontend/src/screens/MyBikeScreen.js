@@ -14,10 +14,14 @@ import Meta from '../components/Meta';
 import Message from '../components/Message';
 import FormContainer from '../components/FormContainer';
 import Loader from '../components/Loader';
-import { listBikeDetails } from '../actions/bikeActions';
+import { listBikeDetails, bikeUpdate } from '../actions/bikeActions';
 import { MY_BIKE_UPDATE_RESET } from '../constants/bikeContants';
 
 const MyBikeScreen = ({ history, match }) => {
+  const bikeId = match.params.id;
+
+  console.log(bikeId)
+
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [nSerie, setnSerie] = useState('');
@@ -39,24 +43,36 @@ const MyBikeScreen = ({ history, match }) => {
     if (!userInfo) {
       history.push('/login');
     } else {
-      // if (!bike.brand) {
-      //   dispatch({ type: MY_BIKE_UPDATE_RESET });
-      // } else {
-      dispatch(listBikeDetails(match.params.id));
-      setBrand(bike.brand);
-      setModel(bike.model);
-      setnSerie(bike.nSerie);
-      setYear(bike.year);
-      setLocation(bike.location);
-      setDescription(bike.description);
-      setPostalCode(bike.postalCode);
-      setIsRecovered(bike.isRecovered);
-      // }
+      if (!bike.brand || bike._id !== bikeId) {
+        dispatch(listBikeDetails(bikeId));
+      } else {
+        setBrand(bike.brand);
+        setModel(bike.model);
+        setnSerie(bike.nSerie);
+        setYear(bike.year);
+        setLocation(bike.location);
+        setDescription(bike.description);
+        setPostalCode(bike.postalCode);
+        setIsRecovered(bike.isRecovered);
+      }
     }
-  }, [dispatch, history, match]);
+  }, [dispatch, history, bikeId]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(
+      bikeUpdate({
+        _id: bikeId,
+        brand,
+        model,
+        nSerie,
+        year,
+        location,
+        description,
+        postalCode,
+        isRecovered,
+      })
+    );
   };
 
   return (
@@ -162,7 +178,7 @@ const MyBikeScreen = ({ history, match }) => {
               </Form.Group>
 
               <Button type="submit" variant="primary">
-                Registar Bicicleta
+                Guardar
               </Button>
             </Form>
           </Row>
