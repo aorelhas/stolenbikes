@@ -4,6 +4,8 @@ import { Row, Col } from 'react-bootstrap';
 import Bike from '../components/Bike';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Hero from '../components/Hero'
+import Services from '../components/Services'
 import { listBikes } from '../actions/bikeActions';
 
 const HomeScreen = () => {
@@ -18,6 +20,7 @@ const HomeScreen = () => {
 
   return (
     <>
+      <Hero />
       <h1>Últimas Bicicletas Furtadas</h1>
       {loading ? (
         <Loader />
@@ -34,6 +37,8 @@ const HomeScreen = () => {
           </Row>
         </>
       )}
+
+      <Services />
     </>
   );
 };

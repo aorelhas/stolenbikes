@@ -34,10 +34,6 @@ const Header = () => {
                     <NavDropdown.Item>Add Bicicleta</NavDropdown.Item>
                   </LinkContainer>
 
-                  <LinkContainer to="/mybikes">
-                    <NavDropdown.Item>Minhas Bicicletas</NavDropdown.Item>
-                  </LinkContainer>
-
                   <LinkContainer to="/profile">
                     <NavDropdown.Item>Dados da Conta</NavDropdown.Item>
                   </LinkContainer>

@@ -164,9 +164,14 @@ const UserAccount = ({ history }) => {
                     <td>{bike.brand}</td>
                     <td>{bike.model}</td>
                     <td>{bike.year}</td>
-                    <td>{bike.isRecovered}</td>
                     <td>
-                      {/* Create new page for detailing own bikes */}
+                      {bike.isRecovered ? (
+                        <span style={{ color: 'green' }}>Yes</span>
+                      ) : (
+                        <span style={{ color: 'red' }}>X</span>
+                      )}
+                    </td>
+                    <td>
                       <LinkContainer to={`/mybike/${bike._id}`}>
                         <Button className="btn-sm" variant="light">
                           Detalhes
