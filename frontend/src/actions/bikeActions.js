@@ -71,11 +71,11 @@ export const createBike = (
 };
 
 // Implement keyword search by nSerie
-export const listBikes = () => async (dispatch) => {
+export const listBikes = (keyword = '') => async (dispatch) => {
   try {
     dispatch({ type: LIST_BIKE_REQUEST });
 
-    const { data } = await axios.get('/api/bikes');
+    const { data } = await axios.get(`/api/bikes?keyword=${keyword}`);
 
     dispatch({
       type: LIST_BIKE_SUCCESS,

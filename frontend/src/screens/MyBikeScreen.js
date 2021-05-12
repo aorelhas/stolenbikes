@@ -168,7 +168,7 @@ const MyBikeScreen = ({ history, match }) => {
               </Form.Group>
 
               <Form.Group controlId="image">
-                <Form.Label>Image</Form.Label>
+                <Form.Label>ImageM</Form.Label>
                 <Form.Control
                   type="text"
                   placeholder="Enter a image"

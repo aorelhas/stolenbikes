@@ -42,7 +42,17 @@ const createBike = asyncHandler(async (req, res) => {
 // @route    GET /api/bike
 // @access   Public
 const getBikes = asyncHandler(async (req, res) => {
-  const bikes = await Bike.find();
+  const keyword = req.query.keyword
+    ? {
+        nSerie: req.query.keyword,
+        // {
+        //   $regex: req.query.keyword,
+        //   // $options: 'i',
+        // },
+      }
+    : {};
+
+  const bikes = await Bike.find({ ...keyword });
 
   if (bikes) {
     res.json(bikes);

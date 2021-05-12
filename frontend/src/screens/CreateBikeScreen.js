@@ -117,7 +117,7 @@ const CreateBike = ({ history }) => {
         </Form.Group>
 
         <Form.Group controlId="image">
-          <Form.Label>Image</Form.Label>
+          <Form.Label>Imagem</Form.Label>
           <Form.Control
             type="text"
             placeholder="Enter a image"
