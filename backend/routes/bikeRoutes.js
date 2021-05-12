@@ -7,19 +7,18 @@ import {
   getMyBikes,
   updateMyBike,
   deleteBike,
+  getLastBikes,
 } from '../controllers/bikeController.js';
 import { protect, admin } from '../middleware/authMiddleWare.js';
 
 router.route('/').get(getBikes);
 router.post('/add', protect, createBike);
 router.route('/mybikes').get(protect, getMyBikes);
-// router
-//   .route('/mybikes/:id')
-//   .put(protect, updateMyBike)
-//   .delete(protect, deleteBike);
-router.route('/:id')
-.get(getBikeById)
-.put(protect, updateMyBike)
-.delete(protect, deleteBike);
+router.get('/top', getLastBikes);
+router
+  .route('/:id')
+  .get(getBikeById)
+  .put(protect, updateMyBike)
+  .delete(protect, deleteBike);
 
 export default router;

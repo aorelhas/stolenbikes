@@ -4,28 +4,21 @@ import { Row, Col } from 'react-bootstrap';
 import Bike from '../components/Bike';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import Hero from '../components/Hero';
-import Services from '../components/Services';
-import { listBikes, bikeTop } from '../actions/bikeActions';
+import { listBikes } from '../actions/bikeActions';
 
-const HomeScreen = () => {
+const AllBikeScreen = () => {
   const dispatch = useDispatch();
 
-  // const listBike = useSelector((state) => state.listBike);
-  // const { loading, error, bikes } = listBike;
-
-  const topBike = useSelector((state) => state.topBike);
-  const { loading, error, bikes } = topBike;
+  const listBike = useSelector((state) => state.listBike);
+  const { loading, error, bikes } = listBike;
 
   useEffect(() => {
-    // dispatch(listBikes());
-    dispatch(bikeTop());
+    dispatch(listBikes());
   }, [dispatch]);
 
   return (
     <>
-      <Hero />
-      <h1>Últimas Bicicletas Furtadas</h1>
+      <h1>Bicicletas Furtadas</h1>
       {loading ? (
         <Loader />
       ) : error ? (
@@ -41,10 +34,8 @@ const HomeScreen = () => {
           </Row>
         </>
       )}
-
-      <Services />
     </>
   );
 };
 
-export default HomeScreen;
+export default AllBikeScreen;

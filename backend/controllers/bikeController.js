@@ -129,6 +129,15 @@ const deleteBike = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc     GET Lastest stolen bike
+// @route    GET /api/bikes/top
+// @access   Public
+const getLastBikes = asyncHandler(async (req, res) => {
+  const bikes = await Bike.find({}).sort({ createdAt: -1 }).limit(6);
+
+  res.json(bikes);
+});
+
 export {
   createBike,
   getBikeById,
@@ -136,4 +145,5 @@ export {
   getMyBikes,
   updateMyBike,
   deleteBike,
+  getLastBikes
 };

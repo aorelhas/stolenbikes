@@ -18,8 +18,9 @@ import {
   MY_BIKE_DELETE_REQUEST,
   MY_BIKE_DELETE_SUCCESS,
   MY_BIKE_DELETE_FAIL,
-  MY_BIKE_UPDATE_RESET,
-  BIKE_DETAIL_RESET,
+  BIKE_TOP_REQUEST,
+  BIKE_TOP_SUCCESS,
+  BIKE_TOP_FAIL,
 } from '../constants/bikeContants';
 
 export const createBike = (
@@ -201,6 +202,27 @@ export const deleteBike = (id) => async (dispatch, getState) => {
     dispatch({
       type: MY_BIKE_DELETE_FAIL,
       payload: message,
+    });
+  }
+};
+
+export const bikeTop = () => async (dispatch) => {
+  try {
+    dispatch({ type: BIKE_TOP_REQUEST });
+
+    const { data } = await axios.get('/api/bikes/top');
+
+    dispatch({
+      type: BIKE_TOP_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: BIKE_TOP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

@@ -11,6 +11,7 @@ import CreateBikeScreen from './screens/CreateBikeScreen';
 import BikeScreen from './screens/BikeScreen';
 import MyBikeScreen from './screens/MyBikeScreen';
 import UserAccountScreen from './screens/UserAccountScreen';
+import AllBikeScreen from './screens/AllBikeScreen';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/profile" component={UserAccountScreen} />
         <Route path="/bike/:id" component={BikeScreen} />
         <Route path="/mybike/:id" component={MyBikeScreen} />
+        <Route path="/bikes" component={AllBikeScreen} />
 
         <Route path="/" component={HomeScreen} exact />
       </Container>

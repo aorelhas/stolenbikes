@@ -20,6 +20,9 @@ import {
   MY_BIKE_DELETE_SUCCESS,
   MY_BIKE_DELETE_FAIL,
   MY_BIKE_UPDATE_RESET,
+  BIKE_TOP_REQUEST,
+  BIKE_TOP_SUCCESS,
+  BIKE_TOP_FAIL,
 } from '../constants/bikeContants';
 
 export const createBikeReducer = (state = {}, action) => {
@@ -112,6 +115,21 @@ export const bikeDeleteReducer = (state = {}, action) => {
     case MY_BIKE_DELETE_SUCCESS:
       return { loading: false, success: true };
     case MY_BIKE_DELETE_FAIL:
+      return { loading: false, error: payload };
+    default:
+      return state;
+  }
+};
+
+export const bikeTopReducer = (state = { bikes: [] }, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case BIKE_TOP_REQUEST:
+      return { loading: true, bikes: [] };
+    case BIKE_TOP_SUCCESS:
+      return { loading: false, bikes: payload };
+    case BIKE_TOP_FAIL:
       return { loading: false, error: payload };
     default:
       return state;
