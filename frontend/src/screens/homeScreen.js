@@ -6,19 +6,15 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
-import { listBikes, bikeTop } from '../actions/bikeActions';
+import {  bikeTop } from '../actions/bikeActions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-
-  // const listBike = useSelector((state) => state.listBike);
-  // const { loading, error, bikes } = listBike;
 
   const topBike = useSelector((state) => state.topBike);
   const { loading, error, bikes } = topBike;
 
   useEffect(() => {
-    // dispatch(listBikes());
     dispatch(bikeTop());
   }, [dispatch]);
 

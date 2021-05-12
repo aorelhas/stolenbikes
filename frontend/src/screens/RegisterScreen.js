@@ -40,7 +40,7 @@ const RegisterScreen = ({ location, history }) => {
   return (
     <FormContainer>
       <h1>Create Account</h1>
-      {message && <Message variant="danger">{message}</Message>}
+      {message && <Message variant="danger">{setMessage(message)}</Message>}
       {error && <Message variant="danger">{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -40,8 +40,7 @@ const BikeScreen = ({ match }) => {
           <Meta title={bike.brand} description={bike.model} />
           <Row>
             <Col md={8}>
-              <h3>IMAGE</h3>
-              {/* <Image src={bike.image} alt={bike.model} fluid /> */}
+              <Image src={bike.image} alt={bike.model} fluid />
             </Col>
             <Col md={4}>
               <ListGroup variant="flush">

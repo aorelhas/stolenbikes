@@ -12,7 +12,6 @@ import {
 } from '../actions/userActions';
 import { getMyOwnBikes } from '../actions/bikeActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
-import { BIKE_DETAIL_RESET } from '../constants/bikeContants';
 
 const UserAccount = ({ history }) => {
   const [email, setEmail] = useState('');

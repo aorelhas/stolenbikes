@@ -28,6 +28,7 @@ export const createBike = (
   model,
   nSerie,
   year,
+  image,
   location,
   description,
   postalCode
@@ -49,7 +50,7 @@ export const createBike = (
 
     const { data } = await axios.post(
       `/api/bikes/add`,
-      { brand, model, nSerie, location, year, description, postalCode },
+      { brand, model, nSerie, image, location, year, description, postalCode },
       config
     );
 

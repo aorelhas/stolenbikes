@@ -11,6 +11,7 @@ const createBike = asyncHandler(async (req, res) => {
     model,
     year,
     nSerie,
+    image,
     location,
     postalCode,
     description,
@@ -23,7 +24,7 @@ const createBike = asyncHandler(async (req, res) => {
     model,
     year,
     nSerie,
-    // image,
+    image,
     location,
     postalCode,
     description,
@@ -88,6 +89,7 @@ const updateMyBike = asyncHandler(async (req, res) => {
     model,
     nSerie,
     year,
+    image,
     location,
     postalCode,
     description,
@@ -101,6 +103,7 @@ const updateMyBike = asyncHandler(async (req, res) => {
     bike.model = model;
     bike.nSerie = nSerie;
     bike.year = year;
+    bike.image = image;
     bike.location = location;
     bike.postalCode = postalCode;
     bike.description = description;
@@ -145,5 +148,5 @@ export {
   getMyBikes,
   updateMyBike,
   deleteBike,
-  getLastBikes
+  getLastBikes,
 };
