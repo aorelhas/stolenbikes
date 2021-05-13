@@ -10,7 +10,7 @@ import {
   deleteUser,
   logout,
 } from '../actions/userActions';
-import { getMyOwnBikes } from '../actions/bikeActions';
+import { getMyOwnBikes, deleteBike } from '../actions/bikeActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
 
 const UserAccount = ({ history }) => {
@@ -67,11 +67,16 @@ const UserAccount = ({ history }) => {
       dispatch(deleteUser(id));
       dispatch(logout());
       setMessage('Conta removida.');
+      history.push('/');
     }
   };
 
-  const deleteBikeHandler = (e) => {
-    e.preventDefault();
+  const deleteBikeHandler = (id) => {
+    if (window.confirm('Deseja remover a bicicleta?')) {
+      dispatch(deleteBike(id));
+      setMessage('Bicicleta removida.');
+      history.push('/');
+    }
   };
 
   return (
@@ -181,7 +186,7 @@ const UserAccount = ({ history }) => {
                         variant="danger"
                         className="btn-sm"
                         onClick={() => {
-                          deleteBikeHandler();
+                          deleteBikeHandler(bike._id);
                         }}
                       >
                         X

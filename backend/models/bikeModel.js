@@ -11,7 +11,7 @@ const bikeSchema = mongoose.Schema(
     model: { type: String, required: true },
     nSerie: { type: Number, unique: true },
     year: { type: Number },
-    image: { type: String, required: true },
+    image: { type: String },
     location: { type: String, required: true },
     postalCode: { type: String, required: true },
     description: { type: String },

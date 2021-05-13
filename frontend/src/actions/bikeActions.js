@@ -195,6 +195,7 @@ export const deleteBike = (id) => async (dispatch, getState) => {
     await axios.delete(`/api/bikes/${id}`, config);
 
     dispatch({ type: MY_BIKE_DELETE_SUCCESS });
+
   } catch (error) {
     const message =
       error.message && error.response.data.message
