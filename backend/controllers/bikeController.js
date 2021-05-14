@@ -127,6 +127,36 @@ const updateMyBike = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc     Create new Review
+// @route    POST /api/bikes/:id/comments
+// @access   Private
+const createBikeComment = asyncHandler(async (req, res) => {
+  const { comments } = req.body;
+
+  const bike = await Bike.findById(req.params.id);
+
+  /*TO_DO
+  -> Add posibility to like comments*/
+
+  if (bike) {
+    const comment = {
+      name: req.user.name,
+      comments,
+      // likes: Number[likes],
+      user: req.user._id,
+    };
+
+    bike.posts.push(comment);
+
+    await bike.save();
+
+    res.status(201).json({ message: 'Comentário adicionado' });
+  } else {
+    res.status(404);
+    throw new Error('Bicicleta não encontrada');
+  }
+});
+
 // @desc     Delete User
 // @route    DELETE /api/bikes/:id
 // @access   Private
@@ -159,4 +189,5 @@ export {
   updateMyBike,
   deleteBike,
   getLastBikes,
+  createBikeComment,
 };

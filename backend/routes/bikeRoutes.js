@@ -8,6 +8,7 @@ import {
   updateMyBike,
   deleteBike,
   getLastBikes,
+  createBikeComment,
 } from '../controllers/bikeController.js';
 import { protect, admin } from '../middleware/authMiddleWare.js';
 
@@ -15,6 +16,7 @@ router.route('/').get(getBikes);
 router.post('/add', protect, createBike);
 router.route('/mybikes').get(protect, getMyBikes);
 router.get('/top', getLastBikes);
+router.route('/:id/comments').post(protect, createBikeComment);
 router
   .route('/:id')
   .get(getBikeById)
