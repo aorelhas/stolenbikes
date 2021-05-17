@@ -23,6 +23,10 @@ import {
   BIKE_TOP_REQUEST,
   BIKE_TOP_SUCCESS,
   BIKE_TOP_FAIL,
+  BIKE_CREATE_COMMENT_REQUEST,
+  BIKE_CREATE_COMMENT_SUCCESS,
+  BIKE_CREATE_COMMENT_RESET,
+  BIKE_CREATE_COMMENT_FAIL,
 } from '../constants/bikeContants';
 
 export const createBikeReducer = (state = {}, action) => {
@@ -131,6 +135,23 @@ export const bikeTopReducer = (state = { bikes: [] }, action) => {
       return { loading: false, bikes: payload };
     case BIKE_TOP_FAIL:
       return { loading: false, error: payload };
+    default:
+      return state;
+  }
+};
+
+export const bikeCommentCreateReducer = (state = {}, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case BIKE_CREATE_COMMENT_REQUEST:
+      return { loading: true };
+    case BIKE_CREATE_COMMENT_SUCCESS:
+      return { loading: false, success: true };
+    case BIKE_CREATE_COMMENT_FAIL:
+      return { loading: false, error: payload };
+    case BIKE_CREATE_COMMENT_RESET:
+      return { bike: {} };
     default:
       return state;
   }

@@ -21,6 +21,9 @@ import {
   BIKE_TOP_REQUEST,
   BIKE_TOP_SUCCESS,
   BIKE_TOP_FAIL,
+  BIKE_CREATE_COMMENT_REQUEST,
+  BIKE_CREATE_COMMENT_SUCCESS,
+  BIKE_CREATE_COMMENT_FAIL,
 } from '../constants/bikeContants';
 
 export const createBike = (
@@ -195,7 +198,6 @@ export const deleteBike = (id) => async (dispatch, getState) => {
     await axios.delete(`/api/bikes/${id}`, config);
 
     dispatch({ type: MY_BIKE_DELETE_SUCCESS });
-
   } catch (error) {
     const message =
       error.message && error.response.data.message
@@ -225,6 +227,39 @@ export const bikeTop = () => async (dispatch) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
+    });
+  }
+};
+
+export const createBikeComment = (bikeId, comment) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: BIKE_CREATE_COMMENT_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.post(`/api/bikes/${bikeId}/comments`, comment, config);
+
+    dispatch({ type: BIKE_CREATE_COMMENT_SUCCESS });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: BIKE_CREATE_COMMENT_FAIL,
+      payload: message,
     });
   }
 };

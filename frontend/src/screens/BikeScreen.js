@@ -18,6 +18,9 @@ import { listBikeDetails } from '../actions/bikeActions';
 const BikeScreen = ({ match }) => {
   const dispatch = useDispatch();
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const bikeDetail = useSelector((state) => state.bikeDetail);
   const { loading, error, bike } = bikeDetail;
 
@@ -43,31 +46,60 @@ const BikeScreen = ({ match }) => {
               <Image src={bike.image} alt={bike.model} fluid />
             </Col>
             <Col md={4}>
-              <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <h3>{bike.brand}</h3>
-                </ListGroup.Item>
+              <Card>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>
+                    <h3>{bike.brand}</h3>
+                  </ListGroup.Item>
 
-                <ListGroup.Item>
-                  <strong>Model:</strong> {bike.model}
-                </ListGroup.Item>
+                  <ListGroup.Item>
+                    <strong>Model:</strong> {bike.model}
+                  </ListGroup.Item>
 
-                <ListGroup.Item>
-                  <strong>Ano:</strong> {bike.year}
-                </ListGroup.Item>
+                  <ListGroup.Item>
+                    <strong>Ano:</strong> {bike.year}
+                  </ListGroup.Item>
 
-                <ListGroup.Item>
-                  <strong>Localização:</strong> {bike.location}
-                </ListGroup.Item>
+                  <ListGroup.Item>
+                    <strong>Localização:</strong> {bike.location}
+                  </ListGroup.Item>
 
-                <ListGroup.Item>
-                  <strong>Descrição:</strong> {bike.description}
-                </ListGroup.Item>
+                  <ListGroup.Item>
+                    <strong>Descrição:</strong> {bike.description}
+                  </ListGroup.Item>
 
-                <ListGroup.Item>
-                  <strong>Cód. Postal:</strong> {bike.postalCode}
-                </ListGroup.Item>
-              </ListGroup>
+                  <ListGroup.Item>
+                    <strong>Cód. Postal:</strong> {bike.postalCode}
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col md={6}>
+              <h2>Comentários</h2>
+              {userInfo ? (
+                <Card>
+                  <ListGroup.Item>
+                    <Form>
+                      <Form.Group controlId="comment">
+                        <Form.Label>Comentário</Form.Label>
+                        <Form.Control as="textarea" row="3"></Form.Control>
+                      </Form.Group>
+
+                      <Button type="submit" variant="primary">
+                        Publicar Comentário
+                      </Button>
+                    </Form>
+                  </ListGroup.Item>
+                </Card>
+              ) : (
+                <Message>
+                  É necessário <Link to="/login"> Entrar</Link> para poder
+                  comentar
+                </Message>
+              )}
             </Col>
           </Row>
         </>

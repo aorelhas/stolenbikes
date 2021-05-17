@@ -18,6 +18,7 @@ import {
   bikeUpdateReducer,
   bikeDeleteReducer,
   bikeTopReducer,
+  bikeCommentCreateReducer,
 } from './reducers/bikeReducer';
 
 const reducer = combineReducers({
@@ -34,6 +35,7 @@ const reducer = combineReducers({
   updateBike: bikeUpdateReducer,
   deleteBike: bikeDeleteReducer,
   topBike: bikeTopReducer,
+  bikeCommentCreate: bikeCommentCreateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
