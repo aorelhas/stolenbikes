@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -13,9 +13,11 @@ import {
 import Meta from '../components/Meta';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listBikeDetails } from '../actions/bikeActions';
+import { listBikeDetails, createBikeComment } from '../actions/bikeActions';
+import { BIKE_CREATE_COMMENT_RESET } from '../constants/bikeContants';
 
 const BikeScreen = ({ match }) => {
+  const [comment, setComment] = useState('');
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -24,9 +26,30 @@ const BikeScreen = ({ match }) => {
   const bikeDetail = useSelector((state) => state.bikeDetail);
   const { loading, error, bike } = bikeDetail;
 
+  const bikeCommentCreate = useSelector((state) => state.bikeCommentCreate);
+  const {
+    success: successBikeComment,
+    error: errorBikeComment,
+  } = bikeCommentCreate;
+
   useEffect(() => {
+    if (successBikeComment) {
+      alert('Comentário Adicionado');
+      setComment('');
+      dispatch({ type: BIKE_CREATE_COMMENT_RESET });
+    }
+
     dispatch(listBikeDetails(match.params.id));
-  }, [dispatch, match]);
+  }, [dispatch, match, successBikeComment]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      createBikeComment(match.params.id, {
+        comment,
+      })
+    );
+  };
 
   return (
     <>
@@ -79,13 +102,31 @@ const BikeScreen = ({ match }) => {
           <Row>
             <Col md={6}>
               <h2>Comentários</h2>
+              {/* {bike.posts.length === 0 && <Message>Sem Comentários</Message>} */}
+              <ListGroup variant="flush">
+                {bike.posts.map((post) => (
+                  <ListGroup.Item key={post._id}>
+                    <strong>{post.name}</strong>
+                    <p>{post.createdAt.substring(0, 10)}</p>
+                    <p>{post.comment}</p>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+              {errorBikeComment && (
+                <Message variant="danger">{errorBikeComment}</Message>
+              )}
               {userInfo ? (
                 <Card>
                   <ListGroup.Item>
-                    <Form>
+                    <Form onSubmit={submitHandler}>
                       <Form.Group controlId="comment">
                         <Form.Label>Comentário</Form.Label>
-                        <Form.Control as="textarea" row="3"></Form.Control>
+                        <Form.Control
+                          as="textarea"
+                          row="3"
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                        ></Form.Control>
                       </Form.Group>
 
                       <Button type="submit" variant="primary">

@@ -131,7 +131,7 @@ const updateMyBike = asyncHandler(async (req, res) => {
 // @route    POST /api/bikes/:id/comments
 // @access   Private
 const createBikeComment = asyncHandler(async (req, res) => {
-  const { comments } = req.body;
+  const { comment } = req.body;
 
   const bike = await Bike.findById(req.params.id);
 
@@ -139,14 +139,14 @@ const createBikeComment = asyncHandler(async (req, res) => {
   -> Add posibility to like comments*/
 
   if (bike) {
-    const comment = {
+    const comments = {
       name: req.user.name,
-      comments,
+      comment,
       // likes: Number[likes],
       user: req.user._id,
     };
 
-    bike.posts.push(comment);
+    bike.posts.push(comments);
 
     await bike.save();
 
