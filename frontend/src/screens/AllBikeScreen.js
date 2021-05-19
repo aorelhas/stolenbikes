@@ -6,19 +6,21 @@ import SearchBox from '../components/SearchBox';
 import Bike from '../components/Bike';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Pagination from '../components/Pagination';
 import { listBikes } from '../actions/bikeActions';
 
 const AllBikeScreen = ({ match }) => {
   const keyword = match.params.keyword;
+  const pageNumber = match.params.pageNumber || 1;
 
   const dispatch = useDispatch();
 
   const listBike = useSelector((state) => state.listBike);
-  const { loading, error, bikes } = listBike;
+  const { loading, error, bikes, page, pages } = listBike;
 
   useEffect(() => {
     dispatch(listBikes(keyword));
-  }, [dispatch, keyword]);
+  }, [dispatch, keyword, pageNumber]);
 
   return (
     <>
@@ -38,6 +40,11 @@ const AllBikeScreen = ({ match }) => {
               </Col>
             ))}
           </Row>
+          <Pagination
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ''}
+          />
         </>
       )}
     </>

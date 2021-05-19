@@ -18,13 +18,14 @@ import { BIKE_CREATE_COMMENT_RESET } from '../constants/bikeContants';
 
 const BikeScreen = ({ match }) => {
   const [comment, setComment] = useState('');
-  const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const dispatch = useDispatch();
 
   const bikeDetail = useSelector((state) => state.bikeDetail);
   const { loading, error, bike } = bikeDetail;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const bikeCommentCreate = useSelector((state) => state.bikeCommentCreate);
   const {

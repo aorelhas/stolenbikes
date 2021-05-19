@@ -53,7 +53,12 @@ export const listBikeReducer = (state = { bikes: [] }, action) => {
     case LIST_BIKE_REQUEST:
       return { loading: true, bikes: [] };
     case LIST_BIKE_SUCCESS:
-      return { loading: false, bikes: payload };
+      return {
+        loading: false,
+        bikes: payload,
+        pages: payload.pages,
+        page: payload.page,
+      };
     case LIST_BIKE_FAIL:
       return { loading: false, error: payload };
     default:
@@ -61,7 +66,7 @@ export const listBikeReducer = (state = { bikes: [] }, action) => {
   }
 };
 
-export const bikeDetailReducer = (state = { bike: {} }, action) => {
+export const bikeDetailReducer = (state = { bike: { posts: [] } }, action) => {
   const { type, payload } = action;
 
   switch (type) {

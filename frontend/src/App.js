@@ -26,7 +26,10 @@ const App = () => {
         <Route path="/mybike/:id" component={MyBikeScreen} />
         <Route path="/bikes" component={AllBikeScreen} />
 
-        <Route path="/search/:keyword" component={AllBikeScreen} />
+        <Route
+          path="/search/:keyword/page/:pageNumber"
+          component={AllBikeScreen}
+        />
         <Route path="/" component={HomeScreen} exact />
       </Container>
       <Footer />
