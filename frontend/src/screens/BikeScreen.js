@@ -67,7 +67,7 @@ const BikeScreen = ({ match }) => {
           <Meta title={bike.brand} description={bike.model} />
           <Row>
             <Col md={8}>
-              <Image src={bike.image} alt={bike.model} fluid />
+              <Image src={bike.image} alt={bike.model}  />
             </Col>
             <Col md={4}>
               <Card>
@@ -130,7 +130,7 @@ const BikeScreen = ({ match }) => {
                         ></Form.Control>
                       </Form.Group>
 
-                      <Button type="submit" variant="primary">
+                      <Button type="submit" variant="primary" className='mt-2 mb-2'>
                         Publicar Comentário
                       </Button>
                     </Form>

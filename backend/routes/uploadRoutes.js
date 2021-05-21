@@ -4,6 +4,8 @@ import multer from 'multer';
 
 const router = express.Router();
 
+const maxSize = 1 * 1024 * 1024;
+
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     // Pass NULL for the error
@@ -32,10 +34,14 @@ function checkFileType(file, cb) {
 
 const upload = multer({
   storage,
+  limits: {
+    fileSize: maxSize,
+  },
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   },
 });
+
 // CHANGE FOR MULTIPLEIMAGES
 router.post('/', upload.single('image'), (req, res) => {
   res.send(`/${req.file.path}`);
