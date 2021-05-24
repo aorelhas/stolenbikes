@@ -6,7 +6,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Hero from '../components/Hero';
 import Services from '../components/Services';
-import {  bikeTop } from '../actions/bikeActions';
+import { bikeTop } from '../actions/bikeActions';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();

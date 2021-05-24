@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="mt-5">
       <Container>
         <Row>
           &copy; Copyright <strong> Stolen Bikes </strong>. All Rights Reserved
