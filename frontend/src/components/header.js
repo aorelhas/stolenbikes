@@ -23,8 +23,11 @@ const Header = () => {
           </LinkContainer>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ml-auto">
+          <Navbar.Collapse
+            className="justify-content-end"
+            id="basic-navbar-nav"
+          >
+            <Nav className="mr-auto">
               <LinkContainer to="/bikes">
                 <Nav.Link>Bicicletas</Nav.Link>
               </LinkContainer>
