@@ -16,6 +16,14 @@ import Loader from '../components/Loader';
 import { listBikeDetails, createBikeComment } from '../actions/bikeActions';
 import { BIKE_CREATE_COMMENT_RESET } from '../constants/bikeContants';
 
+const styles = {
+  cardImage: {
+    objectFit: 'cover',
+    width: '100%',
+    height: '100%',
+  },
+};
+
 const BikeScreen = ({ match }) => {
   const [comment, setComment] = useState('');
 
@@ -67,7 +75,11 @@ const BikeScreen = ({ match }) => {
           <Meta title={bike.brand} description={bike.model} />
           <Row>
             <Col md={8}>
-              <Image src={bike.image} alt={bike.model}  />
+              <Image
+                src={bike.image}
+                alt={bike.model}
+                style={styles.cardImage}
+              />
             </Col>
             <Col md={4}>
               <Card>
@@ -77,7 +89,7 @@ const BikeScreen = ({ match }) => {
                   </ListGroup.Item>
 
                   <ListGroup.Item>
-                    <strong>Model:</strong> {bike.model}
+                    <strong>Modelo:</strong> {bike.model}
                   </ListGroup.Item>
 
                   <ListGroup.Item>
@@ -89,11 +101,11 @@ const BikeScreen = ({ match }) => {
                   </ListGroup.Item>
 
                   <ListGroup.Item>
-                    <strong>Descrição:</strong> {bike.description}
+                    <strong>Cód. Postal:</strong> {bike.postalCode}
                   </ListGroup.Item>
 
                   <ListGroup.Item>
-                    <strong>Cód. Postal:</strong> {bike.postalCode}
+                    <strong>Descrição:</strong> {bike.description}
                   </ListGroup.Item>
                 </ListGroup>
               </Card>
@@ -101,23 +113,25 @@ const BikeScreen = ({ match }) => {
           </Row>
 
           <Row>
-            <Col md={6}>
+            <Col md={8}>
               <h2>Comentários</h2>
               {/* {bike.posts.length === 0 && <Message>Sem Comentários</Message>} */}
-              <ListGroup variant="flush">
-                {bike.posts.map((post) => (
-                  <ListGroup.Item key={post._id}>
-                    <strong>{post.name}</strong>
-                    <p>{post.createdAt.substring(0, 10)}</p>
-                    <p>{post.comment}</p>
-                  </ListGroup.Item>
-                ))}
-              </ListGroup>
+              <Card>
+                <ListGroup variant="flush">
+                  {bike.posts.map((post) => (
+                    <ListGroup.Item key={post._id}>
+                      <strong>{post.name}</strong>
+                      <p>{post.createdAt.substring(0, 10)}</p>
+                      <p>{post.comment}</p>
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Card>
               {errorBikeComment && (
                 <Message variant="danger">{errorBikeComment}</Message>
               )}
               {userInfo ? (
-                <Card>
+                <Card className='mt-2'>
                   <ListGroup.Item>
                     <Form onSubmit={submitHandler}>
                       <Form.Group controlId="comment">
@@ -130,7 +144,11 @@ const BikeScreen = ({ match }) => {
                         ></Form.Control>
                       </Form.Group>
 
-                      <Button type="submit" variant="primary" className='mt-2 mb-2'>
+                      <Button
+                        type="submit"
+                        variant="primary"
+                        className="mt-2 mb-2"
+                      >
                         Publicar Comentário
                       </Button>
                     </Form>
