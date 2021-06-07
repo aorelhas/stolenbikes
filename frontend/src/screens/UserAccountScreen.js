@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Form, Button, Row, Col } from 'react-bootstrap';
+import { Table, Form, Button, Row, Col, Card } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
@@ -83,6 +83,7 @@ const UserAccount = ({ history }) => {
     <>
       <Row>
         <Col md={3} className="mt-2">
+          {/* <Card> */}
           <h3>Dados Pessoais</h3>
           {message && <Message variant="danger">{message}</Message>}
           {error && <Message variant="danger">{error}</Message>}
@@ -139,10 +140,11 @@ const UserAccount = ({ history }) => {
               ></Form.Control>
             </Form.Group>
 
-            <Button type="submit" variant="primary">
-              Update
+            <Button type="submit" variant="primary" className='mt-2'>
+              Atualizar
             </Button>
           </Form>
+          {/* </Card> */}
         </Col>
 
         <Col md={9} className="mt-2">
