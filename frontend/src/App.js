@@ -11,6 +11,7 @@ import CreateBikeScreen from './screens/CreateBikeScreen';
 import BikeScreen from './screens/BikeScreen';
 import MyBikeScreen from './screens/MyBikeScreen';
 import UserAccountScreen from './screens/UserAccountScreen';
+import ForgetPasswordScreen from './screens/ForgetPasswordScreen';
 import AllBikeScreen from './screens/AllBikeScreen';
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
       <Container>
         <Route path="/login" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
+        <Route path="/users/password/forget" component={ForgetPasswordScreen} />
         <Route path="/addbike" component={CreateBikeScreen} />
         <Route path="/profile" component={UserAccountScreen} />
         <Route path="/bike/:id" component={BikeScreen} />
